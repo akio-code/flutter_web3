@@ -60,8 +60,7 @@ class _ConfigPageState extends State<ConfigPage> {
               return Padding(
                 padding: const EdgeInsets.only(top: 24),
                 child: SelectableText(
-                  configBloc.state.address?.toString() ??
-                      'no available address',
+                  configBloc.state.address?.hexEip55 ?? 'no available address',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
               );

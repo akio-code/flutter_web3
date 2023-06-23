@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rental_blockchain/balance/balance_page.dart';
 import 'package:flutter_rental_blockchain/config/bloc/config_bloc.dart';
 import 'package:flutter_rental_blockchain/config/config_page.dart';
 
@@ -37,9 +37,7 @@ class _AppState extends State<App> {
           controller: _pageController,
           onPageChanged: _updatePageIndex,
           children: const [
-            Center(
-              child: Text('Balance'),
-            ),
+            BalancePage(),
             ConfigPage(),
           ],
         ),

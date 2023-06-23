@@ -44,7 +44,7 @@ class ConfigBloc extends Bloc<ConfigEvent, ConfigState> {
     SaveConfig event,
     Emitter<ConfigState> emit,
   ) {
-    final web3client = Web3Client(state.privateKey, Client());
+    final web3client = Web3Client(state.rpcServer, Client());
     final credentials = EthPrivateKey.fromHex(state.privateKey);
     final address = credentials.address;
 
