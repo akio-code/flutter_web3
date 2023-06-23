@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rental_blockchain/config/bloc/config_bloc.dart';
 import 'package:flutter_rental_blockchain/config/config_page.dart';
@@ -11,26 +12,52 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  final _pageController = PageController();
+  int _currentIndex = 1;
+
+  void _navigateToPage(int index) {
+    _updatePageIndex(index);
+    _pageController.animateToPage(
+      index,
+      duration: kThemeAnimationDuration,
+      curve: Curves.easeInOut,
+    );
+  }
+
+  void _updatePageIndex(int index) {
+    setState(() => _currentIndex = index);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ConfigBloc>(
       create: (context) => ConfigBloc(),
-      child: Navigator(
-        initialRoute: "/config",
-        onGenerateRoute: _onGenerateRoute,
+      child: Scaffold(
+        body: PageView(
+          controller: _pageController,
+          onPageChanged: _updatePageIndex,
+          children: const [
+            Center(
+              child: Text('Balance'),
+            ),
+            ConfigPage(),
+          ],
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          onTap: _navigateToPage,
+          currentIndex: _currentIndex,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.monetization_on),
+              label: 'Balance',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: 'Config',
+            ),
+          ],
+        ),
       ),
     );
-  }
-
-  Route? _onGenerateRoute(RouteSettings settings) {
-    final route = settings.name;
-
-    if (route == "/config") {
-      return CupertinoPageRoute(
-        builder: (context) => const ConfigPage(),
-      );
-    }
-
-    return null;
   }
 }
