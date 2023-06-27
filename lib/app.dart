@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rental_blockchain/balance/balance_page.dart';
-import 'package:flutter_rental_blockchain/config/bloc/config_bloc.dart';
 import 'package:flutter_rental_blockchain/config/config_page.dart';
+import 'package:flutter_rental_blockchain/web3client/bloc/web3_client_bloc.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -30,8 +30,8 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ConfigBloc>(
-      create: (context) => ConfigBloc(),
+    return BlocProvider<Web3ClientBloc>(
+      create: (context) => Web3ClientBloc(),
       child: Scaffold(
         body: PageView(
           controller: _pageController,
