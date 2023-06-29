@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rental_blockchain/balance/balance_page.dart';
 import 'package:flutter_rental_blockchain/config/config_page.dart';
+import 'package:flutter_rental_blockchain/erc20/erc20_page.dart';
 import 'package:flutter_rental_blockchain/web3client/bloc/web3_client_bloc.dart';
 
 class App extends StatefulWidget {
@@ -12,8 +13,8 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  final _pageController = PageController();
-  int _currentIndex = 1;
+  final _pageController = PageController(initialPage: 2);
+  int _currentIndex = 2;
 
   void _navigateToPage(int index) {
     _updatePageIndex(index);
@@ -37,6 +38,7 @@ class _AppState extends State<App> {
           controller: _pageController,
           onPageChanged: _updatePageIndex,
           children: const [
+            ERC20Page(),
             BalancePage(),
             ConfigPage(),
           ],
@@ -45,6 +47,10 @@ class _AppState extends State<App> {
           onTap: _navigateToPage,
           currentIndex: _currentIndex,
           items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.currency_bitcoin),
+              label: 'ERC20',
+            ),
             BottomNavigationBarItem(
               icon: Icon(Icons.monetization_on),
               label: 'Balance',
